@@ -1,0 +1,36 @@
+用户设置：
+1、上传头像：POST /ava_upload
+	参数:uid=用户ID&sid=新浪ID
+	返回:错误提示 {s:0,e:错误提示}; 成功 {s:1,url:头像地址(/img/xxx.png,请求图片时需加上服务器地址)}
+
+2、用户登录: GET /log  (新浪微博登录)  //插入数据
+	参数：nick=昵称&ava=头像&sid=新浪ID
+	返回:错误提示 {s:0,e:错误提示}; 成功 {s:1,us:{sid:新浪ID _id:用户ID nick:昵称 ava:头像 img:[图片链接] age:年龄 location:位置 profile:简介 job:工作,token:融云的Token}}
+	
+3、用户信息: GET /info
+	参数: uid=用+户ID&sid=新浪ID
+	返回:错误提示 {s:0,e:错误提示}; 成功 {s:1,us:{sid:新浪ID _id:用户ID nick:昵称 ava:头像 img:[图片链接] age:年龄 location:位置 profile:简介 job:工作}}
+
+4、follow(喜欢): GET /follow
+	参数: uid=用户ID&sid=新浪ID&oid=对方ID
+	返回:错误提示 {s:0,e:错误提示}; 成功 {s:1,likeeach:是否相互喜欢(0/1)};
+
+5、likeeach(互相喜欢): GET /likeeach
+	参数: uid=用户ID&sid=新浪ID
+	返回:错误提示 {s:0,e:错误提示}; 成功 {s:1,likeeachs:{_id:用户ID nick:昵称 ava:头像 lastContent:最近一次聊天信息]};
+
+6、message_txt(发送消息): GET /message_txt
+	参数: uid=用户ID&oid=对方ID&content=文字消息
+	返回:错误提示 {s:0,e:错误提示}; 成功 {s:1,code:200(code为200时表示发送成功)};
+
+7、message_history(历史消息): GET /message_history
+	参数: uid=用户ID&oid=对方ID&p=页码
+	返回:错误提示 {s:0,e:错误提示}; 成功 {s:1,messages:[_id:消息ID,fid:发送方ID,tid:接收方ID,content:文本消息内容]};
+
+8、access_token(微博的token): GET /access_token
+	参数: code:调用authorize获得的code值。
+	返回:错误提示 {s:0,e:错误提示}; 成功 {s:1,access_token:token};
+
+9、用户信息修改: GET /info_replace
+	参数: uid=用户ID&sid=新浪ID&attributes=要修改的属性(包括: job,home,nickname,description,sex,age,birthday,area,communion_interests)&attributesValue=属性值
+	返回:错误提示 {s:0,e:错误提示}; 成功 {s:1}
